@@ -1,0 +1,68 @@
+version: '3.6'
+
+services:
+  gateway:
+    build:
+      context: ./gateway
+    depends_on:
+      - kicks-cms
+      - identity-service
+      - identity_db
+      - redis
+    ports:
+      - 80:80
+      - 443:443
+
+  kicks-cms:
+    container_name: kicks-cms
+    build:
+      context: ./kicks-cms
+      dockerfile: Dockerfile
+    volumes:
+      - ./dist/out:/usr/share/nginx/html
+    env_file: .env
+    ports:
+      - 3001:80
+
+  mongo-standalone: 
+    image: mongo
+    container_name: homeboy-mongo-standalone
+    env_file: .env
+    volumes: 
+      - ./homeboy-mongo/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+      - ./homeboy-mongo/db:/data/db
+    ports:
+      - '27017-27019:27017-27019'
+
+  identity_db:
+      image: postgres:10-alpine
+      container_name: identity_db
+      volumes:
+        - identity_db_data:/var/lib/postgresql/data
+      env_file: .env
+        
+  identity-service:
+      image: jboss/keycloak:4.1.0.Final
+      container_name: identity-service
+      ports:
+        - 8088:8080
+      volumes:
+        - ./keycloak/themes/puretalent:/opt/jboss/keycloak/themes/puretalent
+      env_file: .env
+      depends_on:
+        - identity_db
+
+  redis:
+    image: 'bitnami/redis:5.0'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis_data:/bitnami/redis/data'
+
+volumes:
+  redis_data:
+    driver: local
+  identity_db_data: {}

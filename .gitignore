@@ -1,0 +1,5 @@
+kicks-cms
+.env
+.idea
+gateway/certs/*
+homeboy-mongo/db/*
