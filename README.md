@@ -25,7 +25,7 @@ make run
 ```
 make run command spins up all the dockers, docker networks and volumes in background.
 
-### TDB:
+### TBD:
 Setup local stack on a kind cluster, side car SSO for all downstream services.
 
 ### Downstream services includes are.
