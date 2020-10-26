@@ -2,5 +2,6 @@ kicks-cms
 .env
 .idea
 gateway/certs/*
+gateway/server*
 homeboy-mongo/db/*
 localstack/data/*

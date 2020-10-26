@@ -12,7 +12,9 @@ stop:
 	docker-compose stop
 
 gen-cert:
-## target is TBD
+	chmod +x gateway/gen-cert.sh 
+	cd gateway && sh gen-cert.sh 
+	cd gateway && rm -rf server*
 
 start-localstack:
 	cd localstack && docker-compose up -d
