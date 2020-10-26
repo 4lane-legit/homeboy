@@ -47,7 +47,7 @@ services:
       ports:
         - 8088:8080
       volumes:
-        - ./keycloak/themes/puretalent:/opt/jboss/keycloak/themes/puretalent
+        - ./keycloak/themes/kicks-blizzard:/opt/jboss/keycloak/themes/kicks-blizzard
       env_file: .env
       depends_on:
         - identity_db

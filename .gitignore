@@ -3,3 +3,4 @@ kicks-cms
 .idea
 gateway/certs/*
 homeboy-mongo/db/*
+localstack/data/*

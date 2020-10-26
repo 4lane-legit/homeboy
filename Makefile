@@ -8,5 +8,14 @@ build_targets:
 run:
 	docker-compose ${COMPOSE_FLAGS} up -d gateway
 
+stop:
+	docker-compose stop
+
 gen-cert:
 ## target is TBD
+
+start-localstack:
+	cd localstack && docker-compose up -d
+
+stop-localstack:
+	cd localstack && docker-compose stop
